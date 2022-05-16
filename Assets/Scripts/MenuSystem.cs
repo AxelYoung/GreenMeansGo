@@ -1,4 +1,4 @@
-﻿using GoogleMobileAds.Api;
+﻿//using GoogleMobileAds.Api;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,8 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuSystem : MonoBehaviour
-{
+public class MenuSystem : MonoBehaviour {
 
     public GameObject menuItems;
     public GameObject playerText;
@@ -27,11 +26,12 @@ public class MenuSystem : MonoBehaviour
 
     public GameObject shop;
 
-    private InterstitialAd interstitial;
+    //private InterstitialAd interstitial;
 
-    private RewardedAd rewardedAd;
+    //private RewardedAd rewardedAd;
 
     public GameObject twoTimes;
+    /*
 
     private void RequestInterstitial()
     {
@@ -66,39 +66,32 @@ public class MenuSystem : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
         this.interstitial.LoadAd(request);
     }
+    */
 
     // Start is called before the first frame update
-    void Start()
-    {
-        RequestInterstitial();
+    void Start() {
+        //RequestInterstitial();
         menuOn = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        if (PlayerPrefs.GetFloat("HS") == Mathf.RoundToInt(PlayerPrefs.GetFloat("HS")))
-        {
+        if (PlayerPrefs.GetFloat("HS") == Mathf.RoundToInt(PlayerPrefs.GetFloat("HS"))) {
             hs.text = "HIGHSCORE:\n" + PlayerPrefs.GetFloat("HS").ToString() + ".0";
-        }
-        else
-        {
+        } else {
             hs.text = "HIGHSCORE:\n" + PlayerPrefs.GetFloat("HS").ToString();
         }
         cns.text = "COINS:" + PlayerPrefs.GetInt("Coins");
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (menuOn)
-        {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
+    void Update() {
+        if (menuOn) {
+            if (Input.GetKeyUp(KeyCode.Space)) {
                 StartGame();
             }
             soundIcon.sprite = soundIcons[PlayerPrefs.GetInt("Sound")];
         }
     }
 
-    public void StartGame()
-    {
+    public void StartGame() {
         menuItems.SetActive(false);
         playerText.SetActive(true);
         player.Green();
@@ -106,79 +99,69 @@ public class MenuSystem : MonoBehaviour
         menuOn = false;
     }
 
-    public void RestartScene()
-    {
-        if (PlayerPrefs.GetInt("Sound") != 2)
-        {
+    public void RestartScene() {
+        if (PlayerPrefs.GetInt("Sound") != 2) {
             Vibration.Vibrate(10);
         }
-        if (this.interstitial.IsLoaded())
-        {
-            this.interstitial.Show();
-        }
+        //if (this.interstitial.IsLoaded())
+        //{
+        //    this.interstitial.Show();
+        //}
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void ChangeSound()
-    {
-        if (PlayerPrefs.GetInt("Sound") < 2)
-        {
+    public void ChangeSound() {
+        if (PlayerPrefs.GetInt("Sound") < 2) {
             PlayerPrefs.SetInt("Sound", PlayerPrefs.GetInt("Sound") + 1);
-        }
-        else
-        {
+        } else {
             PlayerPrefs.SetInt("Sound", 0);
         }
         print("Something");
     }
 
-    public void OpenShop()
-    {
+    public void OpenShop() {
         shop.SetActive(true);
     }
 
-    public void CloseShop()
-    {
+    public void CloseShop() {
         shop.SetActive(false);
     }
 
-    public void LoadRewardedAd()
-    {
-        if (this.rewardedAd.IsLoaded())
-        {
-            this.rewardedAd.Show();
-        }
+    public void LoadRewardedAd() {
+        //if (this.rewardedAd.IsLoaded())
+        //{
+        //    this.rewardedAd.Show();
+        //}
     }
 
-    public void HandleRewardedAdLoaded(object sender, EventArgs args)
-    {
+    public void HandleRewardedAdLoaded(object sender, EventArgs args) {
         MonoBehaviour.print("HandleRewardedAdLoaded event received");
     }
 
-    public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
-    {
-        MonoBehaviour.print(
-            "HandleRewardedAdFailedToLoad event received with message: "
-                             + args.Message);
-    }
+    //public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
+    //{
+    //    MonoBehaviour.print(
+    //        "HandleRewardedAdFailedToLoad event received with message: "
+    //                         + args.Message);
+    //}
 
-    public void HandleRewardedAdOpening(object sender, EventArgs args)
-    {
+    public void HandleRewardedAdOpening(object sender, EventArgs args) {
         MonoBehaviour.print("HandleRewardedAdOpening event received");
     }
 
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
-    {
-        MonoBehaviour.print(
-            "HandleRewardedAdFailedToShow event received with message: "
-                             + args.Message);
-    }
+    //public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+    //{
+    //    MonoBehaviour.print(
+    //        "HandleRewardedAdFailedToShow event received with message: "
+    //                        + args.Message);
+    //}
 
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
-    {
+    public void HandleRewardedAdClosed(object sender, EventArgs args) {
         MonoBehaviour.print("HandleRewardedAdClosed event received");
     }
 
+
+    /*
     public void HandleUserEarnedReward(object sender, Reward args)
     {
         string type = args.Type;
@@ -190,5 +173,5 @@ public class MenuSystem : MonoBehaviour
         cns.text = "COINS:" + PlayerPrefs.GetInt("Coins");
         twoTimes.SetActive(false);
     }
-
+    */
 }
